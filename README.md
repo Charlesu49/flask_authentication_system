@@ -4,6 +4,9 @@ The project makes use of the Flask-Login module for user session management and 
 
 ## Demo
 
+https://user-images.githubusercontent.com/38054491/188340511-f3e6349d-2107-473a-b9f4-8b14040c9060.mp4
+
+
 ## Project structure
 ```
 ROOT DIRECTORY
