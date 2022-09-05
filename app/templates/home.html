@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="px-3">
+        <img class="mb-4" src="{{ 'static/images/CU.png' }}" alt="" width="50" >
+        <h1>Secure Authentication Project</h1>
+        {% if current_user.is_authenticated %}
+            <p class="lead">Welcome {{ current_user.username | capitalize }}! this project aims to build a secure and reliable Flask Authentication system.</p>
+            <p class="lead">
+                <a href="{{ url_for('main.info') }}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+            </p>
+
+            <p class="lead">
+                <a href="{{ url_for('main.admin_hub') }}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Admin Hub</a>
+            </p>
+        {% else %}
+            <p class="lead">This project aims to build a secure and reliable Flask Authentication system. Proceed to log in or register a new account.</p>
+        {% endif %}
+
+    </main>
+{% endblock %}

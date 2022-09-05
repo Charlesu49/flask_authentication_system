@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="px-3">
+        <h1 class="mb-2 mt-5">Secure Authentication Project</h1>
+        <p class="lead">
+            This project makes use of the Flask-Login module for user session
+            management and access control. It handles logging users in, logging users out
+            and remembering user sessions. The Flask WTForms library is used in this project
+            to handle form rendering and form validations. Bcrypt is used for salting and
+            hashing passwords before they are passed to the database and also for matching
+            attempted passwords against the stored hashes during log in attempts. Roles Based access-control
+            is also employed here to prevent users without the required permissions from gaining
+            access to certain pages. Flask-Mail is also employed for delivering timed email validation
+            mails to new users. Views/pages are also restricted to unconfirmed users.
+        </p>
+    </main>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!--extends the base.html template-->
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="px-3">
+        <h2 class="mb-4">Hello {{ current_user.username }}!</h2>
+        <h3>You are yet to confirm your account.</h3>
+        <p class="lead">
+            To gain access to this page please check your email address for a confirmation email or click below to generate another confirmation mail.
+        </p>
+
+        <p class="lead">
+          <a href="{{ url_for('auth.resend_confirmation') }}" class="btn btn-md btn-secondary fw-bold border-white bg-white">Generate Confirmation</a>
+        </p>
+    </main>
+{% endblock %}

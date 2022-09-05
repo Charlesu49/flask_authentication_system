@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="px-3">
+        <img class="mb-4" src="{{ logo_url }}" alt="" width="50" >
+        <h1>Welcome {{ current_user.username | capitalize }}</h1>
+        <p class="lead">You are welcome</p>
+    </main>
+{% endblock %}

@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+Welcome to <b>CU Login Systems</b>!
+Click on the link below to confirm your new account.
+{{ url_for('auth.confirm_account', token=token, _external=True) }}
+<br>
+Sincerely,
+The CU Team
+
+Note: replies to this email address are not monitored.

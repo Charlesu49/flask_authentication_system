@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="px-3">
+        <h1 class="mb-2 mt-5">Protected Page- Admins Only</h1>
+        <p class="lead">
+            This page is protected by RBAC, allowing only users with the Admin
+            permission to gain access. It can be used to deploy admin dash-boards
+            in real life scenarios. During registration, the application checks the
+            username(can be email) against that provided in the APP_ADMIN config
+            settings and if there is a match it automatically assigns it an ADMIN role
+            otherwise a user role is assigned to the user.
+        </p>
+    </main>
+{% endblock %}

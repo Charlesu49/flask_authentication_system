@@ -1,0 +1,13 @@
+/env
+/venv
+.python-version
+start.sh
+main.py
+tests
+database-bckup04092022.db
+/app/main/forms.py
+
+
+
+
+

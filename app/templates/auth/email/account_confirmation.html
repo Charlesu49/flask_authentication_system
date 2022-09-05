@@ -1,0 +1,11 @@
+<p>Dear {{ user.username }},</p>
+
+<p>Welcome to <b>CU Login Systems</b>!</p>
+<p>Click <a href="{{ url_for('auth.confirm_account', token=token, _external=True) }}">here</a> to confirm your new account.</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('auth.confirm_account', token=token, _external=True) }}</p>
+<br>
+<p>Sincerely,</p>
+<p>The CU Team</p>
+
+<p><small>Note: replies to this email address are not monitored.</small></p>
