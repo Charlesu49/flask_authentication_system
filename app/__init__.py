@@ -5,12 +5,14 @@ from config import config
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_bcrypt import Bcrypt
 
 
 moment = Moment()
 db = SQLAlchemy()  # db = SQLAlchemy(session_options={"autoflush": False})
 migrate = Migrate()
 mail = Mail()
+bcrypt = Bcrypt()
 
 
 login_manager = LoginManager()
@@ -30,6 +32,7 @@ def create_app(config_name):
     db.init_app(app)
     mail.init_app(app)
     login_manager.init_app(app)
+    bcrypt.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

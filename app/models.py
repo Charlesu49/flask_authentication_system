@@ -1,7 +1,7 @@
 from datetime import datetime as d
 import datetime
 from app import db
-import bcrypt
+from . import bcrypt
 from flask_login import UserMixin, AnonymousUserMixin
 from . import login_manager
 from flask import current_app
@@ -23,6 +23,7 @@ def round_seconds(dts):
 
 # the model
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(255), nullable=False, unique=True, index=True)
     email = db.Column(db.String(255), nullable=False, unique=True, index=True)
@@ -30,7 +31,7 @@ class User(UserMixin, db.Model):
     # password_salt = db.Column(db.String(255))
     # password_hash_algorithm = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(), default=round_seconds(d.now()))
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
 
     # to assign a role to a user on account registeration
@@ -61,12 +62,10 @@ class User(UserMixin, db.Model):
 
     @password.setter
     def password(self, plain_text_password):
-        plain_text_password = bytes(plain_text_password, encoding='utf-8')
-        self.password_hash = bcrypt.hashpw(plain_text_password, bcrypt.gensalt(12))
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 
     def verify_password(self, attempted_password):
-        attempted_password = bytes(attempted_password, encoding='utf-8')
-        return bcrypt.checkpw(attempted_password, self.password_hash)
+        return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
     #  below is related to user confirmation
     # generates new confirmation token using itsdangerous' URLSafeTimedSerializer
@@ -105,12 +104,13 @@ login_manager.anonymous_user = AnonymousUser
 
 
 class Role(db.Model):
+    __tablename__ = 'roles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255))
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
-    user = db.relationship('User', backref='role', lazy='dynamic')
+    users = db.relationship('User', backref='role', lazy='dynamic')
 
     # set the value of permissions to 0 if an initial value is not provided
     def __init__(self, **kwargs):
@@ -139,9 +139,9 @@ class Role(db.Model):
     @staticmethod
     def add_roles():
         roles = {
-            'user': [Permission.READ],
-            'moderator': [Permission.READ, Permission.MODERATE],
-            'administrator': [Permission.READ, Permission.MODERATE, Permission.ADMIN]
+            'user': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
+            'moderator': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE, Permission.MODERATE],
+            'administrator': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE, Permission.MODERATE, Permission.ADMIN]
         }
         default_role = 'user'
         for r in roles:
@@ -163,9 +163,11 @@ class Role(db.Model):
 # to be combined and giving each possible combination of permissions a unique value to be stored
 # in the role's permissions field.
 class Permission:
-    READ = 1
-    MODERATE = 2
-    ADMIN = 4
+    FOLLOW = 1
+    COMMENT = 2
+    WRITE = 4
+    MODERATE = 8
+    ADMIN = 16
 
 
 # The login_manager.user_loader decorator is used to register the function with
