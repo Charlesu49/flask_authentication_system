@@ -1,4 +1,6 @@
 # Secure Authentication System
+[![wakatime](https://wakatime.com/badge/user/b6827135-c0f9-40fa-b61b-bc479142cea3/project/81e6aaa5-9164-4333-a102-6ffd5b8e7775.svg)](https://wakatime.com/badge/user/b6827135-c0f9-40fa-b61b-bc479142cea3/project/81e6aaa5-9164-4333-a102-6ffd5b8e7775)
+
 This project aims to build a secure and reliable Flask Authentication system.
 The project makes use of the Flask-Login module for user session management and access control. It handles logging users in, logging users out and remembering user sessions. The Flask WTForms library is used in this project to handle form rendering and form validations. Bcrypt is used for salting and hashing passwords before they are passed to the database and also for matching attempted passwords against the stored hashes during log in attempts. Roles Based access-control is also employed here to prevent users without the required permissions from gaining access to certain pages. Flask-Mail is also employed for delivering timed email validation mails to new users. Views/pages are also restricted to unconfirmed users.
 
